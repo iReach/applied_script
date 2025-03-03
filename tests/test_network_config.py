@@ -1,4 +1,8 @@
-import NetworkdConfigManager
+import os
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
+
+from network_config_manager import NetworkConfigManager
 from netmiko import ConnectHandler
 
 class TestNetworkConfig:
@@ -15,7 +19,7 @@ class TestNetworkConfig:
         update_response_prefix("Standard Response") för att sätta response
         prefix.
         """
-        pass
+        self.net_config = NetworkConfigManager()
 
     def teardown(self):
         """
