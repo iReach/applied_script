@@ -12,9 +12,9 @@ class TestBookDAO:
         self.conn = sqlite3.connect('test_book_database.db')
         self.cursor = self.conn.cursor()
         self.book_dao = BookDAO("test_book_database.db")
-        self.book_dao.insert_book(Book("Book1", "description1", "author1"))
-        self.book_dao.insert_book(Book("Book2", "description2", "author2"))
-        self.book_dao.insert_book(Book("Book3", "description3", "author3"))
+        self.book_dao.insert_book(Book('sommaren utan regn', 'en roman', 'Maggie O farrel' ))
+        self.book_dao.insert_book(Book('En oväntad vänskap', 'boken baserat på en film', 'Abdel Sellou'))
+        self.book_dao.insert_book(Book('Förstå och förklara','psykologins vetenskapsteori', 'Helge malmgren'))
 
     def teardown_method(self):
         self.book_dao.clear_table()
@@ -23,7 +23,9 @@ class TestBookDAO:
 
     def test_get_all_books(self):
         # Verifies that 3 Books exists in database
-        pass
+        all_books = self.book_dao.get_all_books()
+        assert len(all_books) == 3
+        
 
     def test_add_new_book(self):
         # Verifies that a new book can be added and that its 4 total
@@ -33,12 +35,23 @@ class TestBookDAO:
 
     def test_get_book_by_title(self):
         # Finds a book by title and verifies that the book is correct
-        pass
+        temp_book = self.book_dao.find_by_title("sommaren utan regn")
+        assert temp_book.description == 'en roman' 
+        
 
     def test_get_book_and_update(self):
         # Finds a book by title and then changes description
-        pass
+        temp_book = self.book_dao.find_by_title("sommaren utan regn")
+        temp_book.description = "sommaren med regn"
+        self.book_dao.update_book(temp_book)
+        updated_book = self.book_dao.find_by_title("sommaren utan regn") 
+        assert updated_book.description == "sommaren med regn" 
 
     def test_get_book_and_delete(self):
         # Finds a book and them removes it
-        pass
+        temp_book = self.book_dao.find_by_title("sommaren utan regn")
+        assert temp_book is not None
+        self.book_dao.delete_book(temp_book)
+        deleted_book = self.book_dao.find_by_title("sommaren utan regn")
+        assert deleted_book == None 
+        
