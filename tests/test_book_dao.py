@@ -30,7 +30,8 @@ class TestBookDAO:
     def test_add_new_book(self):
         # Verifies that a new book can be added and that its 4 total
         assert len(self.book_dao.get_all_books()) == 3
-        self.book_dao.insert_book(Book("Book4","description4","author4"))
+        new_book = Book("Book4","description4","author4")
+        self.book_dao.insert_book(new_book)
         assert len(self.book_dao.get_all_books()) == 4
 
     def test_get_book_by_title(self):

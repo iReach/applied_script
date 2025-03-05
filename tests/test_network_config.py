@@ -38,21 +38,34 @@ class TestNetworkConfig:
         assert hostname == "hostname: 1"
 
     def test_show_interface_state(self):
+
         # Tests that the connection returns correct interface state
-        assert False
+        interface_state = self.net_config.show_interface_state()
+        assert interface_state == "interface_state: down"
 
     def test_show_response_prefix(self):
+
         # tests that response prefix is good
-        assert False
+        response_prefix = self.net_config.show_response_prefix()
+        assert response_prefix == "response_prefix: Standard Response"
 
     def test_update_hostname(self):
+        update_hostname = self.net_config.update_hostname("10")
+        assert update_hostname == "hostname: 10"
+
+
         # tests that hostname can be updated from its default values
-        assert False
 
     def test_update_interface_state(self):
-        # tests that interface state can be updated from its default values
-        assert False
+        self.net_config.update_interface_state("up")
+        interface_state = self.net_config.show_interface_state()
+        assert interface_state == "interface_state: up"  
 
-    def test_response_prefix(self):
+        # tests that interface state can be updated from its default values
+
+    def test_uppdate_response_prefix(self):
+        self.net_config.update_response_prefix("standard response10")
+        response_prefix = self.net_config.show_response_prefix() 
         # tests that response prefix can be updated from its default values
-        assert False
+        assert response_prefix == "response_prefix: standard response10"
+
