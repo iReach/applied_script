@@ -6,7 +6,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
 
 from book import Book
 from book_dao import BookDAO
-import sqlite3
 
 
 @pytest.fixture

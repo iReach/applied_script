@@ -30,27 +30,49 @@ def net_config():
 
 
 class TestNetworkConfig:
-    def test_show_host_name(self, net_config):
+    def test_show_hostname(self, net_config):
         # Tests that the connection returns hostname 1
         hostname = net_config.show_hostname()
         assert hostname == "hostname: 1"
 
     def test_show_interface_state(self, net_config):
         # Tests that the connection returns correct interface state
-        assert False
+        interface_state = net_config.show_interface_state()
+        assert interface_state == "interface_state: down"
 
     def test_show_response_prefix(self, net_config):
         # tests that response prefix is good
-        assert False
+        response_prefix = net_config.show_response_prefix()
+        assert response_prefix == "response_prefix: Standard Response"
 
     def test_update_hostname(self, net_config):
         # tests that hostname can be updated from its default values
-        assert False
+        new_hostname = "10"
+        net_config.update_hostname(new_hostname)
+        hostname = net_config.show_hostname()
+        assert hostname == ("hostname: " + new_hostname)
 
     def test_update_interface_state(self, net_config):
         # tests that interface state can be updated from its default values
-        assert False
+        new_interface_state = "up"
+        net_config.update_interface_state(new_interface_state)
+        interface_state = net_config.show_interface_state()
+        assert interface_state == ("interface_state: " + new_interface_state)
 
-    def test_response_prefix(self, net_config):
+    def test_update_response_prefix(self, net_config):
         # tests that response prefix can be updated from its default values
-        assert False
+        new_response_prefix = "alternate response"
+        net_config.update_response_prefix(new_response_prefix)
+        response_prefix = net_config.show_response_prefix()
+        assert response_prefix == ("response_prefix: " + new_response_prefix)
+
+    def test_invalid_interface_state(self, net_config):
+        # checks that interface state throws exception if invalid state is set
+        new_interface_state = "left"
+        try:
+            net_config.update_interface_state(new_interface_state)
+        except ValueError:
+            assert True
+        else:
+            #it should never reach this assert, and therefore should fail if it does
+            assert False
