@@ -9,8 +9,7 @@ import sqlite3
 class TestBookDAO:
     def setup_method(self):
         #Setups the database for testing, this includes adding 3 books
-        self.conn = sqlite3.connect('test_book_database.db')
-        self.cursor = self.conn.cursor()
+        
         self.book_dao = BookDAO("test_book_database.db")
         self.book_dao.insert_book(Book('sommaren utan regn', 'en roman', 'Maggie O farrel' ))
         self.book_dao.insert_book(Book('En oväntad vänskap', 'boken baserat på en film', 'Abdel Sellou'))
@@ -19,7 +18,7 @@ class TestBookDAO:
     def teardown_method(self):
         self.book_dao.clear_table()
         self.book_dao.close()
-        self.conn.close()
+       
 
     def test_get_all_books(self):
         # Verifies that 3 Books exists in database
