@@ -50,7 +50,8 @@ class TestNetworkConfig:
         assert response_prefix == "response_prefix: Standard Response"
 
     def test_update_hostname(self):
-        update_hostname = self.net_config.update_hostname("10")
+        self.net_config.update_hostname("10")
+        update_hostname = self.net_config.show_hostname()
         assert update_hostname == "hostname: 10"
 
 
