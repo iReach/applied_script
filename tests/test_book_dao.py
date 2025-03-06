@@ -9,22 +9,20 @@ import sqlite3
 class TestBookDAO:
     def setup_method(self):
         #Setups the database for testing, this includes adding 3 books
-        
         self.book_dao = BookDAO("test_book_database.db")
         self.book_dao.insert_book(Book('sommaren utan regn', 'en roman', 'Maggie O farrel' ))
         self.book_dao.insert_book(Book('En oväntad vänskap', 'boken baserat på en film', 'Abdel Sellou'))
         self.book_dao.insert_book(Book('Förstå och förklara','psykologins vetenskapsteori', 'Helge malmgren'))
 
     def teardown_method(self):
+        # Deltetes database and closes connection
         self.book_dao.clear_table()
         self.book_dao.close()
-       
 
     def test_get_all_books(self):
         # Verifies that 3 Books exists in database
         all_books = self.book_dao.get_all_books()
         assert len(all_books) == 3
-        
 
     def test_add_new_book(self):
         # Verifies that a new book can be added and that its 4 total
